@@ -58,8 +58,9 @@
 	  I thought about also running it as a program under a Unix-like system
 	  on MIPS.  So I subsequently tried compiling for NetBSD under gxemul,
 	  but for some reason only got it to work by compiling with
-	  <code>-fno-pic</code> and not using any library calls.  So for now I
-	  will probably ignore platforms other than PSP.
+	  <code>-fno-pic</code> and using <code>syscall</code> instead of any
+	  library calls.  So for now I will probably ignore platforms other than
+	  PSP.
 	</p>
       </article>
     </main>
