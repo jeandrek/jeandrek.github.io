@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Scheme for PSP &ndash; Jeandre's blog</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+  <body>
+    <header>
+      <h1>A blog</h1>
+      <p class="subtitle">Computer Science undergrad &bullet; Programming and stuff</p>
+    </header>
+    <main>
+      <p>Places to check out:</p>
+      <p><a href="/gsoc-blog/">My 2023 Google Summer of Code submission</a></p>
+      <p><a href="https://github.com/jeandrek">GitHub</a></p>
+      <hr>
+      <article>
+	<h2>Scheme for PSP</h2>
+	<p class="date">
+	  <time datetime="2024-11-30">30<sup>th</sup> November, 2024</time>
+	</p>
+	<p>
+	  I started fiddling with PSP homebrew and, thinking about the Scheme
+	  interpreter which I had written in RISC-V assembly for my
+	  <a href="https://github.com/jeandrek/scratch-risc-v-programs">
+	    Scratch RISC-V emulator
+	  </a>
+	  around early 2022, started wondering how similar MIPS assembly would
+	  be to RISC-V assembly, or if it would even be possible to get it to
+	  assemble with little more than a few substitutions&hellip; and much
+	  to my surprise, this was actually possible.
+	</p>
+	<p>
+	  I replaced all instances of <code>mv</code> with <code>move</code>,
+	  <code>call</code> with <code>jal</code>, <code>lla</code> with
+	  <code>la</code>, <code>ret</code> with <code>jr $ra</code>, etc.; and
+	  changed the registers where needed (and adding dollar signs), after
+	  which it, to my excitement, assembled to an object file fine (without
+	  linking or working, obviously).  From there it wasn't very long till
+	  I got something that started working on PSP with pspsdk's debug
+	  screen.  As of now, though, the original being written, obviously,
+	  with RISC-V in mind, the interpreter's own routines don't respect the
+	  MIPS calling convention; more specifically <code>$a0</code> is used
+	  for return values as well as arguments and <code>$v0</code> isn't
+	  taken advantage of at all.  From there I've started expanding it,
+	  with more features hopefully to come.
+	</p>
+	<p>
+	  More information on
+	  <a href="https://github.com/jeandrek/scheme-for-psp">GitHub</a>.
+	</p>
+	<img src="psp-photo.jpg">
+	<p>
+	  For now, the library goes in /boot.scm on the memory stick.
+	</p>
+	<p>
+	  I thought about also running it as a program under a Unix-like system
+	  on MIPS.  So I subsequently tried compiling for NetBSD under gxemul,
+	  but for some reason only got it to work by compiling with
+	  <code>-fno-pic</code> and not using any library calls.  So for now I
+	  will probably ignore platforms other than PSP.
+	</p>
+      </article>
+    </main>
+  </body>
+</html>
